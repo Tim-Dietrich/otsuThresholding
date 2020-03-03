@@ -39,7 +39,7 @@ class Pair<I, F> {
 
 public class Thresholding {
 	
-	static boolean treshDebug = true;
+	static boolean treshDebug = true; //true for demonstration purposes
 
 	public static void main(String[] args) { 
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -48,13 +48,10 @@ public class Thresholding {
 		try {
 			img = ImageIO.read(new File("src/resources/sampleImage1.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		};
+		}
 		Mat sampleMat = AnalysisUtil.bufferedImageToMat(img);
-		//AnalysisUtil.showImage(sampleMat, "Image pre edit", false);
-		Mat finishedMat = threshold(sampleMat);
-		//AnalysisUtil.showImage(finishedMat, "Image post edit", false);
+		threshold(sampleMat);
 	}
 	
 	/**
@@ -77,14 +74,12 @@ public class Thresholding {
 		Mat thresholdedMat = new Mat();
 		Boolean backIsBlack = backgroundCheck(grayImg, histogram);
 		if (getNeededThresholdCount(histogram, grayImg) == 1) { // 1 Threshold -> OpenCV Tresholding
-			System.out.println("OpenCV");
 			if (backIsBlack) {
 				Imgproc.threshold(grayImg, thresholdedMat, 0, 255, Imgproc.THRESH_OTSU + Imgproc.THRESH_BINARY);
 			} else {
 				Imgproc.threshold(grayImg, thresholdedMat, 0, 255, Imgproc.THRESH_OTSU + Imgproc.THRESH_BINARY_INV);
 			}
 		} else if (getNeededThresholdCount(histogram, grayImg) > 1) { // 2 Thresholds -> custom otsu Tresholding
-			System.out.println("custom otsu");
 			thresholdedMat = otsu2(grayImg, histogram);
 		} else {
 			return mat;
