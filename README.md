@@ -4,3 +4,6 @@ This method will yield best results with Google Tesseract if it is combined with
 
 With this application images are binarized, meaning only 0 and 1 (black and white) remain. In order to achieve this I use OpenCV.
 A simple sample image with a difficult case has already been added and will be binarized with the custom otsu algorithm.
+
+Here is an example to showcase how an image is turned into a binary image:
+![otsu thresholding example](https://i.imgur.com/oA3LQ5n.png)
